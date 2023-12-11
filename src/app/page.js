@@ -18,7 +18,7 @@ export default function Home() {
       label: "yr",
     },
   };
-  const [step, setStep] = useState(STEP_3);
+  const [step, setStep] = useState(STEP_1);
   const [totals, setTotals] = useState(0);
 
   // STEP 2
