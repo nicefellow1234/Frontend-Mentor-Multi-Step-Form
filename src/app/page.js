@@ -4,7 +4,7 @@ import { useState } from "react";
 export default function Home() {
   // GENERAL
   const [STEP_1, STEP_2, STEP_3, STEP_4] = [1, 2, 3, 4];
-  const [step, setStep] = useState(STEP_3);
+  const [step, setStep] = useState(STEP_1);
 
   // STEP 2
   const [ARCADE_PLAN, ADVANCED_PLAN, PRO_PLAN] = [1, 2, 3];
