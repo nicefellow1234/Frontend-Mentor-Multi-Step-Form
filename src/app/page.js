@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 
 export default function Home() {
   // GENERAL
-  const [STEP_1, STEP_2, STEP_3, STEP_4] = [1, 2, 3, 4];
+  const [STEP_1, STEP_2, STEP_3, STEP_4, STEP_5] = [1, 2, 3, 4, 5];
   const CURRENCY = "$";
   const [MONTHLY_INTERVAL, YEARLY_INTERVAL] = [1, 2];
   const INTERVALS_DATA = {
@@ -185,7 +185,7 @@ export default function Home() {
                     <div className="flex items-center mb-7">
                       <div
                         className={`font-semibold text-[14px] leading-[0] ${
-                          step == STEP_4
+                          step == STEP_4 || step == STEP_5
                             ? "bg-[#bee1fd]"
                             : "text-white border-[1px] border-white"
                         } px-3 py-4 rounded-full mr-4`}
@@ -205,9 +205,7 @@ export default function Home() {
                 </div>
               </div>
               <div className="col-span-7">
-                <section
-                  className={`step1 ${step == STEP_1 ? null : "hidden"}`}
-                >
+                <section className={`step1 ${step == STEP_1 ? "" : "hidden"}`}>
                   <div className="px-24 pt-8 pb-2 h-full">
                     <div>
                       <h1 className="text-[33px] font-bold text-[var(--marine-blue-color)] mb-2">
@@ -263,9 +261,7 @@ export default function Home() {
                     </div>
                   </div>
                 </section>
-                <section
-                  className={`step2 ${step == STEP_2 ? null : "hidden"}`}
-                >
+                <section className={`step2 ${step == STEP_2 ? "" : "hidden"}`}>
                   <div className="px-24 pt-8 pb-2 h-full">
                     <div>
                       <h1 className="text-[33px] font-bold text-[var(--marine-blue-color)] mb-2">
@@ -366,9 +362,7 @@ export default function Home() {
                     </div>
                   </div>
                 </section>
-                <section
-                  className={`step3 ${step == STEP_3 ? null : "hidden"}`}
-                >
+                <section className={`step3 ${step == STEP_3 ? "" : "hidden"}`}>
                   <div className="px-24 pt-8 pb-2 h-full">
                     <div>
                       <h1 className="text-[33px] font-bold text-[var(--marine-blue-color)] mb-2">
@@ -436,9 +430,7 @@ export default function Home() {
                     </div>
                   </div>
                 </section>
-                <section
-                  className={`step4 ${step == STEP_4 ? null : "hidden"}`}
-                >
+                <section className={`step4 ${step == STEP_4 ? "" : "hidden"}`}>
                   <div className="px-24 pt-8 pb-2 h-full">
                     <div>
                       <h1 className="text-[33px] font-bold text-[var(--marine-blue-color)] mb-2">
@@ -513,10 +505,31 @@ export default function Home() {
                       </button>
                       <button
                         className="p-3 px-6 rounded-lg bg-[var(--purplish-blue-color)] text-white text-[15px]"
-                        onClick={() => setStep(STEP_4)}
+                        onClick={() => setStep(STEP_5)}
                       >
                         Confirm
                       </button>
+                    </div>
+                  </div>
+                </section>
+                <section
+                  className={`step5 ${
+                    step == STEP_5 ? "" : "hidden"
+                  } h-full py-[135px]`}
+                >
+                  <div className="flex items-center justify-center h-full">
+                    <div className="flex flex-col items-center justify-center">
+                      <div>
+                        <img src="assets/images/icon-thank-you.svg" />
+                      </div>
+                      <div className="text-[33px] font-bold text-[var(--marine-blue-color)] mt-4 mb-4">
+                        Thank you!
+                      </div>
+                      <div className="text-[16px] text-center px-24 text-[var(--cool-gray-color)]">
+                        Thanks for confirming your subscription! We hope you
+                        have fun using our platform. If you ever need support,
+                        plase feel free to email us at support@loremgaming.com.
+                      </div>
                     </div>
                   </div>
                 </section>
