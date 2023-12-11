@@ -1,29 +1,120 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Home() {
   // GENERAL
   const [STEP_1, STEP_2, STEP_3, STEP_4] = [1, 2, 3, 4];
-  const [step, setStep] = useState(STEP_1);
+  const CURRENCY = "$";
+  const [MONTHLY_INTERVAL, YEARLY_INTERVAL] = [1, 2];
+  const INTERVALS_DATA = {
+    [MONTHLY_INTERVAL]: {
+      name: "month",
+      full: "Monthly",
+      label: "mo",
+    },
+    [YEARLY_INTERVAL]: {
+      name: "year",
+      full: "Yearly",
+      label: "yr",
+    },
+  };
+  const [step, setStep] = useState(STEP_3);
+  const [totals, setTotals] = useState(0);
 
   // STEP 2
   const [ARCADE_PLAN, ADVANCED_PLAN, PRO_PLAN] = [1, 2, 3];
-  const [MONTHLY_INTERVAL, YEARLY_INTERVAL] = [1, 2];
-  const PLAN_INTERVAL_PRICES = {
-    [MONTHLY_INTERVAL]: {
-      [ARCADE_PLAN]: "$9/mo",
-      [ADVANCED_PLAN]: "$12/mo",
-      [PRO_PLAN]: "$15/mo",
+  const PLANS_DATA = [
+    {
+      planId: ARCADE_PLAN,
+      planName: "Arcade",
+      planPrices: {
+        [MONTHLY_INTERVAL]: 9,
+        [YEARLY_INTERVAL]: 90,
+      },
     },
-    [YEARLY_INTERVAL]: {
-      [ARCADE_PLAN]: "$90/yr",
-      [ADVANCED_PLAN]: "$120/yr",
-      [PRO_PLAN]: "$150/yr",
+    {
+      planId: ADVANCED_PLAN,
+      planName: "Advanced",
+      planPrices: {
+        [MONTHLY_INTERVAL]: 12,
+        [YEARLY_INTERVAL]: 120,
+      },
     },
+    {
+      planId: PRO_PLAN,
+      planName: "Pro",
+      planPrices: {
+        [MONTHLY_INTERVAL]: 15,
+        [YEARLY_INTERVAL]: 150,
+      },
+    },
+  ];
+  const [plan, setPlan] = useState(
+    PLANS_DATA.find((singlePlan) => singlePlan.planId == ARCADE_PLAN)
+  );
+  const [interval, setInterval] = useState(MONTHLY_INTERVAL);
+  const handleIntervalToggle = () => {
+    setInterval(
+      interval == MONTHLY_INTERVAL ? YEARLY_INTERVAL : MONTHLY_INTERVAL
+    );
   };
 
-  const [plan, setPlan] = useState(ARCADE_PLAN);
-  const [interval, setInterval] = useState(MONTHLY_INTERVAL);
+  // STEP 3
+  const [ONLINE_SERVICE, LARGER_STORAGE, CUSTOMIZABLE_PROFILE] = [1, 2, 3];
+  const ADDONS_DATA = [
+    {
+      addonId: ONLINE_SERVICE,
+      addonName: "Online service",
+      addonDescription: "Access to multiplayer games",
+      addonPrices: {
+        [MONTHLY_INTERVAL]: 1,
+        [YEARLY_INTERVAL]: 10,
+      },
+    },
+    {
+      addonId: LARGER_STORAGE,
+      addonName: "Larger storage",
+      addonDescription: "Extra 1TB of cloud save",
+      addonPrices: {
+        [MONTHLY_INTERVAL]: 2,
+        [YEARLY_INTERVAL]: 20,
+      },
+    },
+    {
+      addonId: CUSTOMIZABLE_PROFILE,
+      addonName: "Customizable profile",
+      addonDescription: "Custom theme on your profile",
+      addonPrices: {
+        [MONTHLY_INTERVAL]: 2,
+        [YEARLY_INTERVAL]: 20,
+      },
+    },
+  ];
+  const [addons, setAddons] = useState([ONLINE_SERVICE, LARGER_STORAGE]);
+  const handleAddonToggle = (addon) => {
+    setAddons((currentAddons) =>
+      currentAddons.includes(addon)
+        ? currentAddons.filter((currentAddon) => currentAddon != addon)
+        : [...currentAddons, addon]
+    );
+  };
+
+  // STEP 4
+  const calculateTotals = () => {
+    let planPrice = plan.planPrices[interval];
+    let addonPrices = 0;
+    for (const addon of ADDONS_DATA) {
+      if (addons.includes(addon.addonId)) {
+        addonPrices += addon.addonPrices[interval];
+      }
+    }
+    return planPrice + addonPrices;
+  };
+
+  useEffect(() => {
+    const calculatedTotals = calculateTotals();
+    setTotals(calculatedTotals);
+  }, [plan, addons, interval]);
 
   return (
     <>
@@ -186,87 +277,41 @@ export default function Home() {
                     </div>
                     <div className="mt-8">
                       <div className="flex">
-                        <div
-                          className={`w-full mr-3 rounded-lg px-4 py-5 border-[2px] ${
-                            plan == ARCADE_PLAN
-                              ? "border-[var(--purplish-blue-color)] bg-[var(--magnolia-color)]"
-                              : "border-[var(--light-gray-color)]"
-                          } cursor-pointer`}
-                          onClick={() => setPlan(ARCADE_PLAN)}
-                        >
-                          <img src="./assets/images/icon-arcade.svg" />
-                          <div className="mt-10">
-                            <div className="text-[16px] text-[var(--marine-blue-color)] font-semibold">
-                              Arcade
-                            </div>
-                            <div className="text-[14px] font-medium text-[var(--cool-gray-color)]">
-                              {PLAN_INTERVAL_PRICES[interval][ARCADE_PLAN]}
-                            </div>
-                            <div
-                              className={`text-[13px] ${
-                                interval == YEARLY_INTERVAL
-                                  ? "opacity-100"
-                                  : "opacity-0"
-                              } transition-opacity font-medium text-[var(--marine-blue-color)]`}
-                            >
-                              2 months free
-                            </div>
-                          </div>
-                        </div>
-                        <div
-                          className={`w-full mr-3 rounded-lg px-4 py-5 border-[2px] ${
-                            plan == ADVANCED_PLAN
-                              ? "border-[var(--purplish-blue-color)] bg-[var(--magnolia-color)]"
-                              : "border-[var(--light-gray-color)]"
-                          } cursor-pointer`}
-                          onClick={() => setPlan(ADVANCED_PLAN)}
-                        >
-                          <img src="./assets/images/icon-advanced.svg" />
-                          <div className="mt-10">
-                            <div className="text-[16px] text-[var(--marine-blue-color)] font-semibold">
-                              Advanced
-                            </div>
-                            <div className="text-[14px] font-medium text-[var(--cool-gray-color)]">
-                              {PLAN_INTERVAL_PRICES[interval][ADVANCED_PLAN]}
-                            </div>
-                            <div
-                              className={`text-[13px] ${
-                                interval == YEARLY_INTERVAL
-                                  ? "opacity-100"
-                                  : "opacity-0"
-                              } transition-opacity font-medium text-[var(--marine-blue-color)]`}
-                            >
-                              2 months free
+                        {PLANS_DATA.map((singlePlan) => (
+                          <div
+                            key={singlePlan.planId}
+                            className={`w-full mr-3 rounded-lg px-4 py-5 border-[2px] ${
+                              singlePlan.planId == plan.planId
+                                ? "border-[var(--purplish-blue-color)] bg-[var(--magnolia-color)]"
+                                : "border-[var(--light-gray-color)]"
+                            } cursor-pointer`}
+                            onClick={() => setPlan(singlePlan)}
+                          >
+                            <img
+                              src={`./assets/images/icon-${singlePlan.planName.toLowerCase()}.svg`}
+                            />
+                            <div className="mt-10">
+                              <div className="text-[16px] text-[var(--marine-blue-color)] font-semibold">
+                                {singlePlan.planName}
+                              </div>
+                              <div className="text-[14px] font-medium text-[var(--cool-gray-color)]">
+                                {CURRENCY +
+                                  singlePlan.planPrices[interval] +
+                                  "/" +
+                                  INTERVALS_DATA[interval]["label"]}
+                              </div>
+                              <div
+                                className={`text-[13px] ${
+                                  interval == YEARLY_INTERVAL
+                                    ? "opacity-100"
+                                    : "opacity-0"
+                                } transition-opacity font-medium text-[var(--marine-blue-color)]`}
+                              >
+                                2 months free
+                              </div>
                             </div>
                           </div>
-                        </div>
-                        <div
-                          className={`w-full rounded-lg px-4 py-5 border-[2px] ${
-                            plan == PRO_PLAN
-                              ? "border-[var(--purplish-blue-color)] bg-[var(--magnolia-color)]"
-                              : "border-[var(--light-gray-color)]"
-                          } cursor-pointer`}
-                          onClick={() => setPlan(PRO_PLAN)}
-                        >
-                          <img src="./assets/images/icon-pro.svg" />
-                          <div className="mt-10">
-                            <div className="text-[16px] text-[var(--marine-blue-color)] font-semibold">
-                              Pro
-                            </div>
-                            <div className="text-[14px] font-medium text-[var(--cool-gray-color)]">
-                              {PLAN_INTERVAL_PRICES[interval][PRO_PLAN]}
-                            </div>
-                            <div
-                              className={`text-[13px] ${
-                                interval == YEARLY_INTERVAL
-                                  ? "opacity-100"
-                                  : "opacity-0"
-                              } transition-opacity font-medium text-[var(--marine-blue-color)]`}
-                            >
-                              2 months free
-                            </div>
-                          </div>
-                        </div>
+                        ))}
                       </div>
                     </div>
                     <div className="mt-8 flex justify-center p-3 rounded-lg bg-[var(--magnolia-color)]">
@@ -282,13 +327,7 @@ export default function Home() {
                         </div>
                         <div
                           className="px-[3px] py-[2.5px] relative leading-[0] w-[40px] rounded-full bg-[var(--marine-blue-color)] mx-3 cursor-pointer"
-                          onClick={() =>
-                            setInterval(
-                              interval == MONTHLY_INTERVAL
-                                ? YEARLY_INTERVAL
-                                : MONTHLY_INTERVAL
-                            )
-                          }
+                          onClick={() => handleIntervalToggle()}
                         >
                           <div
                             className={`transition-all text-right ${
@@ -336,10 +375,52 @@ export default function Home() {
                         Pick add-ons
                       </h1>
                       <div className="text-[15px] text-[var(--cool-gray-color)]">
-                        You have the option of monthly or yearly billing.
+                        Add-ons help enhance your gaming experience.
                       </div>
                     </div>
-                    <div className="mt-14 flex justify-between">
+                    <div className="mt-6">
+                      {ADDONS_DATA.map((singleAddon) => (
+                        <div
+                          key={singleAddon.addonId}
+                          className={`border-[2px] rounded-lg p-4 ${
+                            addons.includes(singleAddon.addonId)
+                              ? "border-[var(--purplish-blue-color)] bg-[var(--magnolia-color)]"
+                              : "border-[var(--light-gray-color)]"
+                          } mb-4 cursor-pointer`}
+                          onClick={() => handleAddonToggle(singleAddon.addonId)}
+                        >
+                          <div className="flex items-center justify-between">
+                            <div className="flex items-center">
+                              <div className="flex items-center justify-center p-3 mr-3">
+                                {addons.includes(singleAddon.addonId) ? (
+                                  <div className="flex items-center justify-center h-[20px] w-[20px] rounded bg-[var(--purplish-blue-color)]">
+                                    <img src="assets/images/icon-checkmark.svg" />
+                                  </div>
+                                ) : (
+                                  <div className="flex items-center justify-center h-[20px] w-[20px] rounded border-[2px] border-[var(--light-gray-color)]"></div>
+                                )}
+                              </div>
+                              <div className="leading-[1.4]">
+                                <div className="text-[16px] font-medium text-[var(--marine-blue-color)]">
+                                  {singleAddon.addonName}
+                                </div>
+                                <div className="text-[14px] text-[var(--cool-gray-color)]">
+                                  {singleAddon.addonDescription}
+                                </div>
+                              </div>
+                            </div>
+                            <div className="text-[14px] text-[var(--purplish-blue-color)]">
+                              {"+" +
+                                CURRENCY +
+                                singleAddon.addonPrices[interval] +
+                                "/" +
+                                INTERVALS_DATA[interval]["label"]}
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                    <div className="mt-12 flex justify-between">
                       <button
                         className="p-3 px-6 text-[var(--cool-gray-color)] text-[15px]"
                         onClick={() => setStep(STEP_2)}
@@ -351,6 +432,90 @@ export default function Home() {
                         onClick={() => setStep(STEP_4)}
                       >
                         Next Step
+                      </button>
+                    </div>
+                  </div>
+                </section>
+                <section
+                  className={`step4 ${step == STEP_4 ? null : "hidden"}`}
+                >
+                  <div className="px-24 pt-8 pb-2 h-full">
+                    <div>
+                      <h1 className="text-[33px] font-bold text-[var(--marine-blue-color)] mb-2">
+                        Finishing up
+                      </h1>
+                      <div className="text-[15px] text-[var(--cool-gray-color)]">
+                        Double-check everything looks OK before confirming.
+                      </div>
+                    </div>
+                    <div className="mt-6">
+                      <div className="p-6 rounded-xl bg-[var(--magnolia-color)]">
+                        <div className="flex justify-between items-center pb-8 border-b-[1px] border-[var(--light-gray-color)]">
+                          <div className="leading-[1.2]">
+                            <div className="text-[16px] text-[var(--marine-blue-color)] font-medium">
+                              {plan.planName} ({INTERVALS_DATA[interval].full})
+                            </div>
+                            <div>
+                              <div
+                                className="inline-block text-[14px] border-b-[2px] border-[var(--cool-gray-color)] text-[var(--cool-gray-color)] cursor-pointer"
+                                onClick={() => setStep(STEP_2)}
+                              >
+                                Change
+                              </div>
+                            </div>
+                          </div>
+                          <div className="text-[16px] text-[var(--marine-blue-color)] font-semibold">
+                            {CURRENCY +
+                              plan.planPrices[interval] +
+                              "/" +
+                              INTERVALS_DATA[interval].label}
+                          </div>
+                        </div>
+                        {ADDONS_DATA.map((singleAddon) =>
+                          addons.includes(singleAddon.addonId) ? (
+                            <div
+                              key={singleAddon.addonId}
+                              className="flex justify-between mt-3"
+                            >
+                              <div className="text-[14px] text-[var(--cool-gray-color)]">
+                                {singleAddon.addonName}
+                              </div>
+                              <div className="text-[14px]">
+                                {"+" +
+                                  CURRENCY +
+                                  singleAddon.addonPrices[interval] +
+                                  "/" +
+                                  INTERVALS_DATA[interval].label}
+                              </div>
+                            </div>
+                          ) : null
+                        )}
+                      </div>
+                      <div className="flex justify-between items-center mt-4 px-6">
+                        <div className="text-[14px] text-[var(--cool-gray-color)]">
+                          Total (per {INTERVALS_DATA[interval].name})
+                        </div>
+                        <div className="text-[20px] text-[var(--purplish-blue-color)] font-semibold">
+                          {"+" +
+                            CURRENCY +
+                            totals +
+                            "/" +
+                            INTERVALS_DATA[interval].label}
+                        </div>
+                      </div>
+                    </div>
+                    <div className="mt-20 flex justify-between">
+                      <button
+                        className="p-3 px-6 text-[var(--cool-gray-color)] text-[15px]"
+                        onClick={() => setStep(STEP_3)}
+                      >
+                        Go Back
+                      </button>
+                      <button
+                        className="p-3 px-6 rounded-lg bg-[var(--purplish-blue-color)] text-white text-[15px]"
+                        onClick={() => setStep(STEP_4)}
+                      >
+                        Confirm
                       </button>
                     </div>
                   </div>
