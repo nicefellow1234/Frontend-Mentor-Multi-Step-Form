@@ -3,6 +3,23 @@
 @tailwind utilities;
 
 :root {
+  --background-color: #eef5ff;
+  --marine-blue-color: #02295a;
+  --pastel-blue-color: #adbeff;
+  --purplish-blue-color: #473dff;
+  --light-blue-color: #bfe2fd;
+  --strawberry-red-color: #ed3548;
+  --cool-gray-color: #9699ab;
+  --light-gray-color: #d6d9e6;
+  --magnolia-color: #f0f6ff;
+  --alabaster-color: #fafbff;
+}
+
+body {
+  background-color: var(--background-color);
+}
+
+/* :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
@@ -24,4 +41,4 @@ body {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
-}
+} */
