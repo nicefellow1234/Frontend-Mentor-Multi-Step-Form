@@ -5,14 +5,17 @@
 :root {
   --background-color: #eef5ff;
   --marine-blue-color: #02295a;
+  --marine-light-blue-color: #174a8b;
   --pastel-blue-color: #adbeff;
   --purplish-blue-color: #473dff;
+  --purplish-light-blue-color: #938cfe;
   --light-blue-color: #bfe2fd;
   --strawberry-red-color: #ed3548;
   --cool-gray-color: #9699ab;
   --light-gray-color: #d6d9e6;
   --magnolia-color: #f0f6ff;
   --alabaster-color: #fafbff;
+  --strawberry-red-color: #ed3548;
 }
 
 body {
