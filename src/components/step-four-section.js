@@ -15,7 +15,7 @@ export default function StepFourSection({
 }) {
   return (
     <section className={`step4 ${step == STEP_4 ? "" : "hidden"}`}>
-      <div className="px-24 pt-8 pb-2 h-full">
+      <div className="px-24 pt-8 pb-2 h-full bg-white">
         <div>
           <h1 className="text-[33px] font-bold text-[var(--marine-blue-color)] mb-2">
             Finishing up

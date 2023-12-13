@@ -143,12 +143,12 @@ export default function Home() {
   return (
     <>
       <main>
-        <div className="h-screen flex justify-center items-center">
-          <div className="container max-w-[950px] rounded-xl drop-shadow-md bg-white p-4">
-            <div className="grid grid-cols-10">
+        <div className="md:h-screen md:flex md:justify-center md:items-center">
+          <div className="md:container md:max-w-[950px] md:rounded-xl md:drop-shadow-md md:bg-white md:p-4">
+            <div className="grid grid-cols-1 md:grid-cols-10 bg-[url('../../public/assets/images/bg-sidebar-mobile.png')] bg-[var(--background-color)] bg-[size:100%_180px] bg-no-repeat md:bg-none">
               <div className="col-span-3">
-                <div className="w-full h-full px-8 py-9 rounded-lg bg-[url('../../public/assets/images/bg-sidebar-desktop.png')] bg-no-repeat bg-[size:100%_100%]">
-                  <div className="">
+                <div className="w-full md:h-full p-5 md:px-8 md:py-9 md:rounded-lg md:bg-[url('../../public/assets/images/bg-sidebar-desktop.png')] bg-no-repeat bg-[size:100%_100%]">
+                  <div className="flex md:block items-center justify-center gap-x-4">
                     {STEPS_DATA.map((singleStep) => (
                       <Fragment key={singleStep.stepNumber}>
                         <SidebarStep

@@ -16,9 +16,9 @@ export default function StepTwoSection({
 }) {
   return (
     <section className={`step2 ${step == STEP_2 ? "" : "hidden"}`}>
-      <div className="px-24 pt-8 pb-2 h-full">
+      <div className="p-8 rounded-xl drop-shadow-lg md:rounded-none md:drop-shadow-none md:mt-0 mx-6 md:mx-0 md:px-24 md:pt-8 md:pb-2 bg-white h-full">
         <div>
-          <h1 className="text-[33px] font-bold text-[var(--marine-blue-color)] mb-2">
+          <h1 className="text-[28px] md:text-[33px] font-bold text-[var(--marine-blue-color)] mb-2">
             Select your plan
           </h1>
           <div className="text-[15px] text-[var(--cool-gray-color)]">
@@ -26,21 +26,23 @@ export default function StepTwoSection({
           </div>
         </div>
         <div className="mt-8">
-          <div className="flex">
+          <div className="flex flex-col md:flex-row">
             {PLANS_DATA.map((singlePlan) => (
               <div
                 key={singlePlan.planId}
-                className={`w-full mr-3 rounded-lg px-4 py-5 border-[2px] hover:border-[var(--purplish-blue-color)] ${
+                className={`w-full mb-3 md:mb-0 flex md:block mr-3 rounded-lg px-4 py-5 border-[2px] hover:border-[var(--purplish-blue-color)] ${
                   singlePlan.planId == plan.planId
                     ? "border-[var(--purplish-blue-color)] bg-[var(--magnolia-color)]"
                     : "border-[var(--light-gray-color)]"
                 } cursor-pointer`}
                 onClick={() => setPlan(singlePlan)}
               >
-                <img
-                  src={`./assets/images/icon-${singlePlan.planName.toLowerCase()}.svg`}
-                />
-                <div className="mt-10">
+                <div className="mr-4 md:mr-0">
+                  <img
+                    src={`./assets/images/icon-${singlePlan.planName.toLowerCase()}.svg`}
+                  />
+                </div>
+                <div className="md:mt-10">
                   <div className="text-[16px] text-[var(--marine-blue-color)] font-semibold">
                     {singlePlan.planName}
                   </div>
@@ -98,7 +100,7 @@ export default function StepTwoSection({
             </div>
           </div>
         </div>
-        <div className="mt-10 flex justify-between">
+        <div className="hidden md:flex mt-10 justify-between">
           <button
             className="p-3 px-6 text-[var(--cool-gray-color)] hover:text-[var(--marine-blue-color)] hover:font-medium text-[15px]"
             onClick={() => setStep(STEP_1)}
@@ -112,6 +114,20 @@ export default function StepTwoSection({
             Next Step
           </button>
         </div>
+      </div>
+      <div className="md:hidden fixed w-full bottom-0 bg-white p-5 flex justify-between">
+        <button
+          className="p-3 px-6 text-[var(--cool-gray-color)] hover:text-[var(--marine-blue-color)] hover:font-medium text-[15px]"
+          onClick={() => setStep(STEP_1)}
+        >
+          Go Back
+        </button>
+        <button
+          className="p-3 px-6 rounded-lg bg-[var(--marine-blue-color)] hover:bg-[var(--marine-light-blue-color)] text-white text-[15px]"
+          onClick={() => setStep(STEP_3)}
+        >
+          Next Step
+        </button>
       </div>
     </section>
   );

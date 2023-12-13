@@ -102,10 +102,10 @@ export default function StepOneSection({ step, setStep, STEP_1, STEP_2 }) {
   };
 
   return (
-    <section className={`step1 ${step == STEP_1 ? "" : "hidden"}`}>
-      <div className="px-24 pt-8 pb-2 h-full">
+    <section className={`step1 ${step == STEP_1 ? "" : "hidden"} md:bg-white`}>
+      <div className="p-8 rounded-xl drop-shadow-lg md:rounded-none md:drop-shadow-none md:mt-0 mx-6 md:mx-0 md:px-24 md:pt-8 md:pb-2 bg-white h-full">
         <div>
-          <h1 className="text-[33px] font-bold text-[var(--marine-blue-color)] mb-2">
+          <h1 className="text-[28px] md:text-[33px] font-bold text-[var(--marine-blue-color)] mb-2">
             Personal info
           </h1>
           <div className="text-[15px] text-[var(--cool-gray-color)]">
@@ -142,7 +142,7 @@ export default function StepOneSection({ step, setStep, STEP_1, STEP_2 }) {
             </div>
           ))}
         </div>
-        <div className="flex mt-12 justify-end">
+        <div className="hidden md:flex mt-12 justify-end">
           <button
             className="p-3 px-6 rounded-lg bg-[var(--marine-blue-color)] hover:bg-[var(--marine-light-blue-color)] text-white text-[15px]"
             onClick={() => handleFirstStepNavigation()}
@@ -150,6 +150,14 @@ export default function StepOneSection({ step, setStep, STEP_1, STEP_2 }) {
             Next Step
           </button>
         </div>
+      </div>
+      <div className="md:hidden fixed w-full bottom-0 bg-white p-5 flex justify-end">
+        <button
+          className="p-3 px-6 rounded-lg bg-[var(--marine-blue-color)] hover:bg-[var(--marine-light-blue-color)] text-white text-[15px]"
+          onClick={() => handleFirstStepNavigation()}
+        >
+          Next Step
+        </button>
       </div>
     </section>
   );

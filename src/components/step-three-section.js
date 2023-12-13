@@ -13,7 +13,7 @@ export default function StepThreeSection({
 }) {
   return (
     <section className={`step3 ${step == STEP_3 ? "" : "hidden"}`}>
-      <div className="px-24 pt-8 pb-2 h-full">
+      <div className="px-24 pt-8 pb-2 h-full bg-white">
         <div>
           <h1 className="text-[33px] font-bold text-[var(--marine-blue-color)] mb-2">
             Pick add-ons

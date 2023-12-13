@@ -1,7 +1,9 @@
 export default function StepFiveSection({ step, STEP_5 }) {
   return (
     <section
-      className={`step5 ${step == STEP_5 ? "" : "hidden"} h-full py-[135px]`}
+      className={`step5 ${
+        step == STEP_5 ? "" : "hidden"
+      } bg-white h-full py-[135px]`}
     >
       <div className="flex items-center justify-center h-full">
         <div className="flex flex-col items-center justify-center">
