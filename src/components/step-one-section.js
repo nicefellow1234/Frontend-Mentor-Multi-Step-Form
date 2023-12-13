@@ -112,9 +112,9 @@ export default function StepOneSection({ step, setStep, STEP_1, STEP_2 }) {
             Please provide your name, email address and phone number.
           </div>
         </div>
-        <div className="mt-8">
+        <div className="mt-5 md:mt-8">
           {FORM_FIELDS_DATA.map((formField) => (
-            <div key={formField.fieldId} className="mb-5">
+            <div key={formField.fieldId} className="mb-3 md:mb-5">
               <div className="flex justify-between">
                 <div className="text-[15px] text-[var(--marine-blue-color)]">
                   {formField.fieldLabel}
