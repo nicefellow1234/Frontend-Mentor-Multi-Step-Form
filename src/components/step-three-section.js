@@ -26,7 +26,7 @@ export default function StepThreeSection({
           {ADDONS_DATA.map((singleAddon) => (
             <div
               key={singleAddon.addonId}
-              className={`border-[2px] rounded-lg p-2 pr-3 md:p-4 hover:border-[var(--purplish-blue-color)] ${
+              className={`border-[2px] rounded-lg p-3 pr-4 md:p-4 hover:border-[var(--purplish-blue-color)] ${
                 addons.includes(singleAddon.addonId)
                   ? "border-[var(--purplish-blue-color)] bg-[var(--magnolia-color)]"
                   : "border-[var(--light-gray-color)]"
